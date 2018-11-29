@@ -1,9 +1,6 @@
 package coursework.fourth.course.model;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -15,18 +12,28 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode(of="id")
 @NoArgsConstructor
 @ToString(of = {"id"})
+@AllArgsConstructor
+@Builder
 public class Mixes {
 
     @Id
     @GeneratedValue
     private int id;
-    @NotNull
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Posts post;
+//    @NotNull
+//    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+//    private Posts post;
 
-    public Mixes(Posts posts)
+    private String name;
+    private String ingredients;
+    private String description;
+    private int mark;
+
+    public Mixes(String name, String ingredients, String description, int mark)
     {
         super();
-        this.post = posts;
+        this.name = name;
+        this.ingredients = ingredients;
+        this.description = description;
+        this.mark = mark;
     }
 }

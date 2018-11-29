@@ -1,7 +1,12 @@
 package coursework.fourth.course.controller;
 
 import coursework.fourth.course.dto.MixDTO;
+import coursework.fourth.course.repository.MixesRepository;
+import coursework.fourth.course.serice.MixesService;
 import io.swagger.annotations.*;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,7 +14,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/mixes")
 @Api(value = "mixes", description = "Endpoints for mixes")
+@RequiredArgsConstructor
 public class MixController {
+
+    @NonNull
+    private MixesRepository mixesRepository;
+
+    @NonNull
+    private MixesService mixesService;
 
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
@@ -17,9 +29,16 @@ public class MixController {
             @ApiResponse(code = 500, message = "Server error")
     })
     @ApiOperation(value = "Get ", response = MixDTO.class)
-    @GetMapping("")
+    @GetMapping
     public List<MixDTO> getMixes(){
-        return null;
+
+        return mixesService.getAll(mixesRepository.findAll());
+    }
+
+    @GetMapping("/{id}")
+    public MixDTO getMixById(@PathVariable int id){
+
+        return mixesService.getOne(mixesRepository.getOne(id));
     }
 
     @ApiResponses(value = {

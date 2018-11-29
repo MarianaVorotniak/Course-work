@@ -30,6 +30,6 @@ public class PageMappingController {
 
     @RequestMapping("mixes/{id}")
     public String mixPage() {
-        return "/recipe-single.html";
+        return "/recipe.html";
     }*/
 }
