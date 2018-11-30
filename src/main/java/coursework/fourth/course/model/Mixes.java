@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="mixes")
-@Inheritance(strategy = InheritanceType.JOINED)
+//@Inheritance(strategy = InheritanceType.JOINED)
 @Data
 @EqualsAndHashCode(of="id")
 @NoArgsConstructor
@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 public class Mixes {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 //    @NotNull
 //    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})

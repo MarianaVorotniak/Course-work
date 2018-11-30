@@ -1,25 +1,35 @@
 package coursework.fourth.course.controller;
 
-import coursework.fourth.course.dto.CommentDTO;
+import coursework.fourth.course.dto.CommentsDTO;
+import coursework.fourth.course.repository.CommentsRepository;
+import coursework.fourth.course.serice.CommentsService;
 import io.swagger.annotations.*;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("")
+@RequestMapping("/comments")
 @Api(value = "comments", description = "Endpoints for comments")
-public class CommentController {
+@RequiredArgsConstructor
+public class CommentsController {
+
+    @NonNull
+    private CommentsService commentsService;
+    @NonNull
+    private CommentsRepository commentsRepository;
 
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK"),
             @ApiResponse(code = 400, message = "Bad request"),
             @ApiResponse(code = 500, message = "Server error")
     })
-    @ApiOperation(value = "Get ", response = CommentDTO.class)
-    @GetMapping("/posts/{post_id}/comments")
-    public List<CommentDTO> getComments(@ApiParam(value = "id of post", required = true) @PathVariable int post_id){
-        return null;
+    @ApiOperation(value = "Get ", response = CommentsDTO.class)
+    @GetMapping("")
+    public List<CommentsDTO> getComments(){
+        return commentsService.getAll(commentsRepository.findAll());
     }
 
     @ApiResponses(value = {
@@ -28,11 +38,11 @@ public class CommentController {
             @ApiResponse(code = 500, message = "Server error")
     })
     @ApiOperation("Edit comment")
-    @PutMapping("/posts/{post_id}/comments/{comment_id}")
-    public CommentDTO editComment(
+    @PutMapping("/edit")
+    public CommentsDTO editComment(
             @ApiParam(value = "id of post", required = true) @PathVariable int post_id,
             @ApiParam(value = "id of comment", required = true) @PathVariable int comment_id,
-            @RequestBody CommentDTO commentDTO){
+            @RequestBody CommentsDTO commentDTO){
         return null;
     }
 
@@ -42,10 +52,9 @@ public class CommentController {
             @ApiResponse(code = 500, message = "Server error")
     })
     @ApiOperation(value = "Create comment")
-    @PostMapping("/posts/{post_id}/comments/create")
-    public CommentDTO addComment(
-            @ApiParam(value = "id of post", required = true) @PathVariable int post_id,
-            @RequestBody CommentDTO commentDTO){
-        return null;
+    @PostMapping("/create")
+    public void addComment(@RequestBody CommentsDTO commentDTO){
+
+        commentsService.addOne(commentDTO);
     }
 }

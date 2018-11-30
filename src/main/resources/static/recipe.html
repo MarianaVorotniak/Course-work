@@ -55,7 +55,7 @@
 
 
 	<!-- Hero section -->
-	<section class="page-top-section set-bg" data-setbg="/img/page-top-bg.jpg">
+	<section class="page-top-section set-bg" data-setbg="/img/background.jpg">
 		<div class="container">
 			<h2>Mixes</h2>
 		</div>
@@ -120,15 +120,15 @@
 			<form class="comment-form">
 				<div class="row">
 					<div class="col-md-6">
-						<input type="text" placeholder="Name">
+						<input type="text" placeholder="Name" id="nameof">
 					</div>
 					<div class="col-md-6">
-						<input type="text" placeholder="E-mail">
+						<input type="text" placeholder="E-mail" id="emailof">
 					</div>
 					<div class="col-md-12">
-						<input type="text" placeholder="Subject">
-						<textarea placeholder="Message"></textarea>
-						<button class="site-btn">Send</button>
+						<input type="text" placeholder="Subject" id="subjectof">
+						<textarea placeholder="Message" id="messageof"></textarea>
+						<button id="submitButton" class="site-btn" type="submit">Send</button>
 					</div>
 				</div>
 			</form>
@@ -176,15 +176,38 @@
 	<script src="js/main.js"></script>
 
 	<script type="text/javascript">
-	$(document).ready(function() {
-			$.getJSON('http://localhost:8085/mixes/1', function (data) {
+
+            $(document).ready(function() {
+                $.getJSON('http://localhost:8086/mixes/1', function (data) {
                 $('#mixname').text(data.name);
                 $('#mixid').text(data.id);
                 $('#mixingr').text(data.ingredients);
                 $('#mixdescr').text(data.description);
 
             });
-      })
-	</script>
+
+                $('#submitButton').click(function(e){
+                var name = $("#nameof").val();
+				var email = $("#emailof").val();
+				var subject = $("#subjectof").val();
+				var textt = $("#messageof").val();
+                $.ajax({
+                type: "post",
+                dataType: "json",
+                contentType: "application/json",
+                url: 'http://localhost:8086/comments/create',
+                data: JSON.stringify({
+                  "name": name,
+                  "email": email,
+                  "subject": subject,
+                  "text": textt
+                })
+            });
+            })
+            })
+        </script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
 </body>
 </html>

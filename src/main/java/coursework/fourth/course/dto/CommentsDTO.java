@@ -10,11 +10,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CommentDTO {
+public class CommentsDTO {
 
     @ApiModelProperty(notes = "Id of the comment")
     private int id;
 
-    @ApiModelProperty(notes = "The comment")
-    private String comment;
+    private String name;
+    private String email;
+    private String subject;
+    private String text;
 }
