@@ -18,6 +18,7 @@
 	<link rel="stylesheet" type="text/css" href="/css/owl.carousel.css"/>
 	<link rel="stylesheet" type="text/css" href="/css/animate.css"/>
 	<link rel="stylesheet" type="text/css" href="/css/style.css"/>
+	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
 
 </head>
@@ -69,7 +70,7 @@
 				<div class="racipe-cata">
 					<span>For Begginers</span>
 				</div>
-				<h2 id="mixname"></h2>
+				<h1 id="mixname"></h1>
 				<div class="mixes-date">May 15, 2018</div>
 				<div class="rating">
 					<i class="fa fa-star"></i>
@@ -102,7 +103,7 @@
 				<div class="col-lg-7">
 					<ul class="mixes-info-list">
 						<li>
-							<p id="mixdescr"></p>
+							<b><h1><p id="mixdescr"></p></h1></b>
 						</li>
 
 					</ul>
@@ -155,10 +156,18 @@
 	<footer class="footer-section set-bg" data-setbg="/img/footer-bg.jpg">
 		<div class="container-fluid">
 			<div class="row">
+				<div class="col-lg-6">
+					<div class="footer-social">
+						<a href="#"><i class="fa fa-facebook"></i></a>
+						<a href="#"><i class="fa fa-twitter"></i></a>
+						<a href="#"><i class="fa fa-instagram"></i></a>
+					</div>
+				</div>
 				<div class="col-lg-6 text-lg-right">
 					<ul class="footer-menu">
 						<li><a href="home.html">Home</a></li>
-						<li><a href="mix.html">Mixes</a></li>
+						<li><a href="mixes.html">Mixes</a></li>
+						<li><a href="about.html">About us</a></li>
 						<li><a href="contact.html">Contact</a></li>
 					</ul>
 				</div>
@@ -178,9 +187,9 @@
 	<script type="text/javascript">
 
             $(document).ready(function() {
-                $.getJSON('http://localhost:8086/mixes/1', function (data) {
+                $.getJSON('http://localhost:8086/mixes/3 ', function (data) {
                 $('#mixname').text(data.name);
-                $('#mixid').text(data.id);
+                $('#mixid').text("Мікс номер " + data.id);
                 $('#mixingr').text(data.ingredients);
                 $('#mixdescr').text(data.description);
 
